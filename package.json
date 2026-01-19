@@ -9,9 +9,9 @@
     "start:dev": "tsx watch --env-file=.env src",
     "test": "jest",
     "test:watch": "jest --watch",
-    "db:migrate": "tsx build/lib/typeorm/run-migrations.js",
-    "db:revert": "tsx build/lib/typeorm/revert-migrations.js",
-    "db:seed": "tsx build/lib/typeorm/seed.js"
+    "db:migrate": "tsx --env-file=.env build/lib/typeorm/run-migrations.js",
+    "db:revert": "tsx --env-file=.env build/lib/typeorm/revert-migrations.js",
+    "db:seed": "tsx --env-file=.env build/lib/typeorm/seed.js"
   },
   "keywords": [],
   "license": "ISC",
