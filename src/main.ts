@@ -1,0 +1,20 @@
+import express from "express";
+import { ResourceNotFoundError } from "./errors/domain.errors";
+import { globalErrorHandler } from "./middlewares/error-handler";
+import { healthRoutes } from "./routes/health.route";
+import { postRoutes } from "./routes/list-public-posts";
+
+export const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(healthRoutes);
+
+app.use(postRoutes);
+
+app.use((_req, _res, next) => {
+  next(new ResourceNotFoundError("Route not found"));
+});
+
+app.use(globalErrorHandler);

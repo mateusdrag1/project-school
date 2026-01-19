@@ -1,0 +1,37 @@
+{
+  "name": "project-school",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+    "build": "tsup src --out-dir build",
+    "start": "node build",
+    "start:dev": "tsx watch --env-file=.env src",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "db:migrate": "tsx build/lib/typeorm/run-migrations.js",
+    "db:revert": "tsx build/lib/typeorm/revert-migrations.js",
+    "db:seed": "tsx build/lib/typeorm/seed.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22.19.7",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.2.0",
+    "supertest": "^7.2.2",
+    "ts-jest": "^29.4.6",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "pg": "^8.17.1",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.28",
+    "zod": "^4.3.5"
+  }
+}
