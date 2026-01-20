@@ -17,13 +17,13 @@ describe("DELETE /posts/:id", () => {
     const post = repository.create({
       title: "Post para deletar",
       content: "Conteúdo temporário",
-      author: "Professor Teste"
+      author: "Professor Teste",
     });
     const savedPost = await repository.save(post);
     const res = await request(app).delete(`/posts/${savedPost.id}`);
 
     expect(res.status).toBe(204);
-    
+
     const deletedPost = await repository.findOneBy({ id: savedPost.id });
     expect(deletedPost).toBeNull();
   });

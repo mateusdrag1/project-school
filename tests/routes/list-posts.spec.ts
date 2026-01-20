@@ -15,7 +15,7 @@ describe("GET /posts", () => {
 
   it("should return status 200 and a list of posts", async () => {
     const res = await request(app).get("/posts");
-    
+
     expect(res.status).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
     if (res.body.length > 0) {

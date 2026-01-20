@@ -14,18 +14,18 @@ describe("GET /posts/search", () => {
 
   it("should return posts that match the search term in title or content", async () => {
     const repository = AppDataSource.getRepository(Post);
-    
+
     await repository.save([
       {
         title: "Aprendendo Node.js",
         content: "Nesta aula veremos como criar APIs.",
-        author: "Arthur"
+        author: "Arthur",
       },
       {
         title: "Docker para Iniciantes",
         content: "Entenda o conceito de containers.",
-        author: "Matthieu"
-      }
+        author: "Matthieu",
+      },
     ]);
 
     const res = await request(app).get("/posts/search").query({ q: "Node" });
@@ -33,13 +33,17 @@ describe("GET /posts/search", () => {
     expect(res.status).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBeGreaterThanOrEqual(1);
-    
-    const hasNodePost = res.body.some((post: any) => post.title.includes("Node"));
+
+    const hasNodePost = res.body.some((post: any) =>
+      post.title.includes("Node"),
+    );
     expect(hasNodePost).toBe(true);
   });
 
   it("should return an empty array if no posts match the search term", async () => {
-    const res = await request(app).get("/posts/search").query({ q: "PalavraInexistente" });
+    const res = await request(app)
+      .get("/posts/search")
+      .query({ q: "PalavraInexistente" });
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual([]);

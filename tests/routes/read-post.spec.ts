@@ -18,7 +18,7 @@ describe("GET /posts/:id", () => {
     const post = repository.create({
       title: "Título para Leitura",
       content: "Conteúdo detalhado do post.",
-      author: "Matthieu"
+      author: "Matthieu",
     });
     const savedPost = await repository.save(post);
 
@@ -32,7 +32,7 @@ describe("GET /posts/:id", () => {
 
   it("should return 404 when the post does not exist", async () => {
     const fakeId = "00000000-0000-0000-0000-000000000000";
-    
+
     const res = await request(app).get(`/posts/${fakeId}`);
 
     expect(res.status).toBe(404);
