@@ -7,8 +7,8 @@
     "build": "tsup src --out-dir build",
     "start": "node build",
     "start:dev": "tsx watch --env-file=.env src",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --runInBand --forceExit --no-cache",
+    "test:watch": "jest --watchAll --runInBand",
     "db:migrate": "tsx --env-file=.env build/lib/typeorm/run-migrations.js",
     "db:revert": "tsx --env-file=.env build/lib/typeorm/revert-migrations.js",
     "db:seed": "tsx --env-file=.env build/lib/typeorm/seed.js"
@@ -23,6 +23,7 @@
     "jest": "^30.2.0",
     "supertest": "^7.2.2",
     "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
