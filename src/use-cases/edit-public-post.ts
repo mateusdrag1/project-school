@@ -12,6 +12,10 @@ export class EditPublicPostUseCase {
       published?: boolean;
     },
   ) {
+    const post = await this.postRepository.findById(id);
+    if (!post) {
+      return null;
+    }
     const updatedPost = await this.postRepository.update(id, data);
     return updatedPost;
   }

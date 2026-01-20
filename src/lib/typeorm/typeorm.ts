@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
   username: env.DATABASE_USER,
   password: env.DATABASE_PASSWORD,
   database: env.DATABASE_NAME,
-  synchronize: false,
+  synchronize: env.NODE_ENV === "test",
   logging: env.NODE_ENV === "development",
   entities: [Post],
   migrations: [CreatePostsTable1768826864000],

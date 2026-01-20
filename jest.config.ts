@@ -3,6 +3,7 @@ import type { Config } from "jest";
 const config: Config = {
   testEnvironment: "node",
   preset: "ts-jest/presets/default-esm",
+  setupFiles: ["<rootDir>/jest.setup.ts"],
   extensionsToTreatAsEsm: [".ts"],
 
   transform: {
