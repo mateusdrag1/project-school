@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { EditPublicPostController } from "../http/controllers/post/edit-public-post";
 import { ensureAuthenticated } from "../middlewares/ensure-authenticated";
+import { ensureRole } from "../middlewares/ensure-role";
 import { PostRepository } from "../repositories/typeorm/post.repository";
 import { EditPublicPostUseCase } from "../use-cases/edit-public-post";
 
@@ -11,6 +12,7 @@ const controller = new EditPublicPostController(useCase);
 router.put(
   "/posts/:id",
   ensureAuthenticated,
+  ensureRole("teacher"),
   controller.handle.bind(controller),
 );
 

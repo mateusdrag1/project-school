@@ -14,11 +14,12 @@ describe("GET /posts/:id", () => {
 
   it("should return a specific post when a valid ID is provided", async () => {
     const repository = AppDataSource.getRepository(Post);
-
     const post = repository.create({
       title: "Título para Leitura",
+      description: "Descrição para leitura",
       content: "Conteúdo detalhado do post.",
       author: "Matthieu",
+      category: "Educação",
     });
     const savedPost = await repository.save(post);
 

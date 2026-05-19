@@ -4,6 +4,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { UserRole } from "./models/user.interface";
 
 @Entity("users")
 export class User {
@@ -18,6 +19,13 @@ export class User {
 
   @Column({ type: "varchar" })
   password_hash!: string;
+
+  @Column({
+    type: "enum",
+    enum: ["student", "teacher"],
+    default: "student",
+  })
+  role!: UserRole;
 
   @CreateDateColumn({ type: "timestamp" })
   created_at!: Date;

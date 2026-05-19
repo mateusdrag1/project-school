@@ -14,17 +14,20 @@ describe("GET /posts/search", () => {
 
   it("should return posts that match the search term in title or content", async () => {
     const repository = AppDataSource.getRepository(Post);
-
     await repository.save([
       {
         title: "Aprendendo Node.js",
+        description: "Aula sobre Node.js",
         content: "Nesta aula veremos como criar APIs.",
         author: "Arthur",
+        category: "Tecnologia",
       },
       {
         title: "Docker para Iniciantes",
+        description: "Aula sobre Docker",
         content: "Entenda o conceito de containers.",
         author: "Matthieu",
+        category: "Tecnologia",
       },
     ]);
 

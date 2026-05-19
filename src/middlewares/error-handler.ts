@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import z, { ZodError } from "zod";
 import {
+  EmailAlreadyInUseError,
   InvalidCredentialsError,
   ResourceNotFoundError,
+  UnauthorizedError,
 } from "../errors/domain.errors";
 
 type HandlerFn = (
@@ -14,7 +16,9 @@ type HandlerFn = (
 type ErrorKey =
   | "ZodError"
   | "ResourceNotFoundError"
-  | "InvalidCredentialsError";
+  | "InvalidCredentialsError"
+  | "UnauthorizedError"
+  | "EmailAlreadyInUseError";
 
 const errorHandlerMap = {
   ZodError: (error, _req, res) => {
@@ -33,6 +37,18 @@ const errorHandlerMap = {
 
   InvalidCredentialsError: (error, _req, res) => {
     return res.status(401).json({
+      message: (error as Error).message,
+    });
+  },
+
+  UnauthorizedError: (error, _req, res) => {
+    return res.status(403).json({
+      message: (error as Error).message,
+    });
+  },
+
+  EmailAlreadyInUseError: (error, _req, res) => {
+    return res.status(409).json({
       message: (error as Error).message,
     });
   },
@@ -71,6 +87,14 @@ export function globalErrorHandler(
 
   if (error instanceof InvalidCredentialsError) {
     return errorHandlerMap.InvalidCredentialsError(error, req, res);
+  }
+
+  if (error instanceof UnauthorizedError) {
+    return errorHandlerMap.UnauthorizedError(error, req, res);
+  }
+
+  if (error instanceof EmailAlreadyInUseError) {
+    return errorHandlerMap.EmailAlreadyInUseError(error, req, res);
   }
 
   const handler = errorHandlerRegistry[getErrorName(error)];

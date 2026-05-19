@@ -8,7 +8,13 @@ export class RegisterUserController {
       const userRepository = new TypeORMUserRepository();
       const registerUserUseCase = new RegisterUserUseCase(userRepository);
 
-      const response = await registerUserUseCase.execute(req.body);
+      const { name, email, password } = req.body;
+      const response = await registerUserUseCase.execute({
+        name,
+        email,
+        password,
+        role: "student",
+      });
 
       return res.status(201).json(response);
     } catch (error) {

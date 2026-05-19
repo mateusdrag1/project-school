@@ -18,6 +18,7 @@ interface AuthenticateUserResponse {
     id: string;
     name: string;
     email: string;
+    role: string;
   };
 }
 
@@ -41,7 +42,7 @@ export class AuthenticateUserUseCase {
       throw new InvalidCredentialsError();
     }
 
-    const token = sign({}, env.JWT_SECRET, {
+    const token = sign({ role: user.role }, env.JWT_SECRET, {
       subject: user.id,
       expiresIn: "1d",
     });
@@ -52,6 +53,7 @@ export class AuthenticateUserUseCase {
         id: user.id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
     };
   }

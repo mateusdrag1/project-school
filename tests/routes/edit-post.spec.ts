@@ -2,10 +2,14 @@ import request from "supertest";
 import { Post } from "../../src/entities/post.entity";
 import { AppDataSource } from "../../src/lib/typeorm/typeorm";
 import { app } from "../../src/main";
+import { getTeacherToken } from "../helpers/auth";
 
 describe("PUT /posts/:id", () => {
+  let token: string;
+
   beforeAll(async () => {
     if (!AppDataSource.isInitialized) await AppDataSource.initialize();
+    token = await getTeacherToken();
   });
 
   afterAll(async () => {
@@ -14,11 +18,12 @@ describe("PUT /posts/:id", () => {
 
   it("should update an existing post successfully", async () => {
     const repository = AppDataSource.getRepository(Post);
-
     const post = repository.create({
       title: "Título Original",
+      description: "Descrição original",
       content: "Conteúdo Antigo",
       author: "Arthur",
+      category: "Educação",
     });
     const savedPost = await repository.save(post);
 
@@ -30,6 +35,7 @@ describe("PUT /posts/:id", () => {
 
     const res = await request(app)
       .put(`/posts/${savedPost.id}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(updatedData);
 
     expect(res.status).toBe(200);
@@ -46,9 +52,18 @@ describe("PUT /posts/:id", () => {
 
     const res = await request(app)
       .put(`/posts/${fakeId}`)
+      .set("Authorization", `Bearer ${token}`)
       .send({ title: "Qualquer Título" });
 
     expect(res.status).toBe(404);
     expect(res.body.message).toBe("Post não encontrado");
+  });
+
+  it("should return 401 when no token is provided", async () => {
+    const res = await request(app)
+      .put("/posts/00000000-0000-0000-0000-000000000000")
+      .send({ title: "Título" });
+
+    expect(res.status).toBe(401);
   });
 });

@@ -11,3 +11,17 @@ export class InvalidCredentialsError extends Error {
     this.name = "InvalidCredentialsError";
   }
 }
+
+export class UnauthorizedError extends Error {
+  constructor(message = "Insufficient permissions") {
+    super(message);
+    this.name = "UnauthorizedError";
+  }
+}
+
+export class EmailAlreadyInUseError extends Error {
+  constructor(message = "Email already in use") {
+    super(message);
+    this.name = "EmailAlreadyInUseError";
+  }
+}

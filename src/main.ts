@@ -4,6 +4,8 @@ import { ResourceNotFoundError } from "./errors/domain.errors";
 import { globalErrorHandler } from "./middlewares/error-handler";
 import { authRoutes } from "./routes/auth.route";
 import { commentLikeRoutes } from "./routes/comment-like.route";
+import { studentsRoutes } from "./routes/students.route";
+import { teachersRoutes } from "./routes/teachers.route";
 import { createPublicPostRoutes } from "./routes/create-public-post";
 import { deletePublicPostRoutes } from "./routes/delete-public-post";
 import { editPublicPostRoutes } from "./routes/edit-public-post";
@@ -21,6 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(healthRoutes);
 
 app.use(authRoutes);
+
+app.use(teachersRoutes);
+app.use(studentsRoutes);
 
 app.use(commentLikeRoutes);
 

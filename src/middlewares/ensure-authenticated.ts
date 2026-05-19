@@ -1,11 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
+import { UserRole } from "../entities/models/user.interface";
 import { env } from "../env";
 
 interface TokenPayload {
   iat: number;
   exp: number;
   sub: string;
+  role: UserRole;
 }
 
 export function ensureAuthenticated(
@@ -28,10 +30,11 @@ export function ensureAuthenticated(
   try {
     const decoded = verify(token, env.JWT_SECRET);
 
-    const { sub } = decoded as TokenPayload;
+    const { sub, role } = decoded as TokenPayload;
 
     req.user = {
       id: sub,
+      role,
     };
 
     return next();
