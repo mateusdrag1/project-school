@@ -6,11 +6,15 @@ export class CreatePublicPostController {
 
   async handle(req: Request, res: Response, next: NextFunction) {
     try {
-      const { title, content, author, published } = req.body;
+      const { title, description, content, author, category, published } =
+        req.body;
+
       const newPost = await this.useCase.execute({
         title,
+        description,
         content,
         author,
+        category,
         published,
       });
       return res.status(201).json({

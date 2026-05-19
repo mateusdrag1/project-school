@@ -30,9 +30,17 @@ export class PostRepository implements IPostRepository {
   }
 
   async findById(id: string): Promise<IPost | null> {
-    return await this.repository.findOne({
+    const post = await this.repository.findOne({
       where: { id },
+      relations: ["comments", "comments.user", "likes"],
     });
+
+    if (!post) return null;
+
+    return {
+      ...post,
+      likesCount: post.likes?.length || 0,
+    } as IPost;
   }
 
   async update(id: string, data: Partial<IPost>): Promise<IPost> {

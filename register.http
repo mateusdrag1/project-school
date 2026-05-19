@@ -1,0 +1,9 @@
+### Registro de Usuário
+POST http://localhost:8000/register
+Content-Type: application/json
+
+{
+    "name": "Admin User",
+    "email": "admin@school.com",
+    "password": "password123"
+}

@@ -1,0 +1,8 @@
+{
+    "github.copilot.chat.languageContext.typescript.enabled": true,
+    "github.copilot.enable": {
+        "plaintext": true,
+        "markdown": true,
+        "scminput": true
+    }
+}

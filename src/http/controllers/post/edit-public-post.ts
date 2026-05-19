@@ -6,11 +6,14 @@ export class EditPublicPostController {
   async handle(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { title, content, author, published } = req.body;
+      const { title, description, content, author, category, published } =
+        req.body;
       const updatedPost = await this.useCase.execute(id as string, {
         title,
+        description,
         content,
         author,
+        category,
         published,
       });
       if (!updatedPost) {

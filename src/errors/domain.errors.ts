@@ -4,3 +4,10 @@ export class ResourceNotFoundError extends Error {
     this.name = "ResourceNotFoundError";
   }
 }
+
+export class InvalidCredentialsError extends Error {
+  constructor(message = "Credenciais inválidas") {
+    super(message);
+    this.name = "InvalidCredentialsError";
+  }
+}

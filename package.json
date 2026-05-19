@@ -9,15 +9,18 @@
     "start:dev": "tsx watch --env-file=.env src",
     "test": "jest --runInBand --forceExit --no-cache",
     "test:watch": "jest --watchAll --runInBand",
-    "db:migrate": "tsx --env-file=.env build/lib/typeorm/run-migrations.js",
-    "db:revert": "tsx --env-file=.env build/lib/typeorm/revert-migrations.js",
-    "db:seed": "tsx --env-file=.env build/lib/typeorm/seed.js"
+    "db:migrate": "tsx --env-file=.env src/lib/typeorm/run-migrations.ts",
+    "db:revert": "tsx --env-file=.env src/lib/typeorm/revert-migrations.ts",
+    "db:seed": "tsx --env-file=.env src/lib/typeorm/seed.ts"
   },
   "keywords": [],
   "license": "ISC",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.19.7",
     "@types/supertest": "^6.0.3",
     "jest": "^30.2.0",
@@ -29,7 +32,10 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "pg": "^8.17.1",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.28",

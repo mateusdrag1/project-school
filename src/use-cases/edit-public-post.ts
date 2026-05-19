@@ -1,3 +1,4 @@
+import { PostCategory } from "../entities/models/post.interface";
 import { PostRepository } from "../repositories/typeorm/post.repository";
 
 export class EditPublicPostUseCase {
@@ -7,8 +8,10 @@ export class EditPublicPostUseCase {
     id: string,
     data: {
       title?: string;
+      description?: string;
       content?: string;
       author?: string;
+      category?: PostCategory;
       published?: boolean;
     },
   ) {

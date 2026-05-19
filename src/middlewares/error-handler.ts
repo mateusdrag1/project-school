@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import z, { ZodError } from "zod";
-import { ResourceNotFoundError } from "../errors/domain.errors";
+import {
+  InvalidCredentialsError,
+  ResourceNotFoundError,
+} from "../errors/domain.errors";
 
 type HandlerFn = (
   error: unknown,
@@ -8,7 +11,10 @@ type HandlerFn = (
   res: Response,
 ) => Response | void;
 
-type ErrorKey = "ZodError" | "ResourceNotFoundError";
+type ErrorKey =
+  | "ZodError"
+  | "ResourceNotFoundError"
+  | "InvalidCredentialsError";
 
 const errorHandlerMap = {
   ZodError: (error, _req, res) => {
@@ -21,6 +27,12 @@ const errorHandlerMap = {
 
   ResourceNotFoundError: (error, _req, res) => {
     return res.status(404).json({
+      message: (error as Error).message,
+    });
+  },
+
+  InvalidCredentialsError: (error, _req, res) => {
+    return res.status(401).json({
       message: (error as Error).message,
     });
   },
@@ -55,6 +67,10 @@ export function globalErrorHandler(
 
   if (error instanceof ResourceNotFoundError) {
     return errorHandlerMap.ResourceNotFoundError(error, req, res);
+  }
+
+  if (error instanceof InvalidCredentialsError) {
+    return errorHandlerMap.InvalidCredentialsError(error, req, res);
   }
 
   const handler = errorHandlerRegistry[getErrorName(error)];

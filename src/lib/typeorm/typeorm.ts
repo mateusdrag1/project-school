@@ -1,7 +1,13 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import { Comment } from "../../entities/comment.entity";
+import { Like } from "../../entities/like.entity";
 import { Post } from "../../entities/post.entity";
+import { User } from "../../entities/user.entity";
 import { env } from "../../env/index";
+import { CreateUsersTable1711100000000 } from "./migrations/1711100000000-CreateUsersTable";
+import { AddDescriptionAndCategoryToPosts1711100000001 } from "./migrations/1711100000001-AddDescriptionAndCategoryToPosts";
+import { CreateCommentsAndLikesTables1711100000002 } from "./migrations/1711100000002-CreateCommentsAndLikesTables";
 import { CreatePostsTable1768826864000 } from "./migrations/1768826864000-CreatePostsTable";
 
 export const AppDataSource = new DataSource({
@@ -13,7 +19,12 @@ export const AppDataSource = new DataSource({
   database: env.DATABASE_NAME,
   synchronize: env.NODE_ENV === "test",
   logging: env.NODE_ENV === "development",
-  entities: [Post],
-  migrations: [CreatePostsTable1768826864000],
+  entities: [Post, User, Comment, Like],
+  migrations: [
+    CreatePostsTable1768826864000,
+    CreateUsersTable1711100000000,
+    AddDescriptionAndCategoryToPosts1711100000001,
+    CreateCommentsAndLikesTables1711100000002,
+  ],
   ssl: false,
 });

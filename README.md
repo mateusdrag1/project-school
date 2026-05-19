@@ -36,6 +36,7 @@ DATABASE_PASSWORD=school
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
 DATABASE_NAME=school
+JWT_SECRET=your_jwt_secret
 ```
 
 ⚠️ **Dentro do Docker Compose**, o `DATABASE_HOST` deve ser `db`.
@@ -100,6 +101,7 @@ DATABASE_PASSWORD=school \
 DATABASE_HOST=localhost \
 DATABASE_PORT=5432 \
 DATABASE_NAME=school \
+JWT_SECRET=your_jwt_secret \
 npm run db:migrate
 ```
 
@@ -113,6 +115,7 @@ DATABASE_PASSWORD=school \
 DATABASE_HOST=localhost \
 DATABASE_PORT=5432 \
 DATABASE_NAME=school \
+JWT_SECRET=your_jwt_secret \
 npm run db:seed
 ```
 

@@ -1,0 +1,24 @@
+### Login de Usuário
+# @name login
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+    "email": "admin@school.com",
+    "password": "password123"
+}
+
+### Variável de Token (para uso em outras rotas)
+@token = {{login.response.body.token}}
+
+### Exemplo de rota protegida usando o token
+POST http://localhost:8000/posts
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "Post com Autenticação",
+    "content": "Conteúdo de teste protegido por JWT",
+    "author": "Admin",
+    "published": true
+}
